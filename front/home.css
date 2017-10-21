@@ -4,7 +4,26 @@
     background-image: url(http://www.ehealthworx.com/wp-content/uploads/2012/03/electronic-health-records-small.jpg);
     background-position: 0% 25%;
     background-size: cover;
-    background-repeat: no-repeat;
     color: white;
     text-shadow: black 0.3em 0.3em 0.3em;
+}
+body{
+	background-color:#d4d8d5;
+}
+.row{
+	border-radius:25px;
+}
+#about{
+	background-color:#fff;
+}
+#team{
+	background-color:#9ba59e;
+}
+#logo{
+	width:2%;
+	height: auto;
+}
+#copyInfo{
+	font-size: 60%;
+	text-align: center;
 }

@@ -6,51 +6,68 @@
 		<title>Sloth Storage</title>
 	</head>
 	<body>
- <nav class="navbar">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
-    </div>
-    <ul class="nav navbar-nav navbar-left">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Page 1</a></li>
-      <li><a href="#">Page 2</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    </ul>
-  </div>
-</nav> 
+ 		<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+	      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
+	      <img src="https://puu.sh/y3OZr/f8f800bd43.png" class="img-responsive" id="logo">
+	      <a class="navbar-brand" href="#">
+	      Sloth Storage
+	  	  </a>
+	      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+	        <ul class="navbar-nav mr-auto">
+	          <li class="nav-item active">
+	            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="#about">About Us</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="#">Contact</a>
+	          </li>
+	        </ul>
+	        <form class="form-inline my-2 my-md-0 btn-toolbar">
+
+	          <button class="btn btn-outline-success my-2 my-sm-0" type="submit" href="patientInfo.html">Patient Portal</button>
+	          <button class="btn btn-outline-success my-2 my-sm-0" type="info"><a href="drLogin.html">Medical Admin Portal</a></button>
+	        </form>
+	      </div>
+    </nav>
+    <br>
 		<div class="container">
-			<div class="jumbotron">
+			<div class="jumbotron text-center">
 				<h2>Who we are</h2>
 				<p>This will be the pretty info</p>
 				<br><br><br>
 			</div>
-			<br><br><br>
+			<br><br>
 			<div class="container">
 				<!--Info-->
-				<div class="row">
+				<div class="row rounded"  id="about">
 					<div class="col-md-3">
-						<img src="https://puu.sh/y3z8h/2e0e1a8113.png" alt="pii infographic" class="img-fluid float-left">
+						<img src="https://puu.sh/y3IBi/d884cd2af1.png" class="img-fluid">
 					</div>
 					<div class="col-md-9">
 						<h2>What is PII?</h2>
-						<p>it stands for Personal Identifiable Information, bitch.</p>
+						<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
 					</div>
 				</div>
 				<br>
-				<div class="row">
-					<div class="col-xl-12">
-						<h2>What we Do</h2>
-						<p>We do important stuff</p>
+				<div class="row rounded" id="team">
+					<div class="col-md-3">
+						<img src="https://puu.sh/y3Gpq/27c2b7a6e7.png" class="img-fluid" alt="team picture">
+					</div>
+					<div class="col-md-9">
+						<h2>Where We Come In</h2>
+						<p> At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 					</div>
 				</div>
-				<p>This is where we will have important info</p>
 			</div>
 		</div>
 
+		<footer>
+			<p id="copyInfo">This was created by Sloth Inc. &copy; 2017</p>
+		</footer>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 	</body>
 <html>

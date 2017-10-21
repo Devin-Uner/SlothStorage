@@ -1,3 +1,7 @@
+.body{
+
+}
+
 #login {
   padding-top: 40px;
   padding-bottom: 40px;
@@ -14,4 +18,9 @@
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
+}
+.logoSloth{
+	padding-top: 40px;
+	height: 40%;
+	width:auto;
 }
