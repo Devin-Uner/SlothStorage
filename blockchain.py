@@ -157,7 +157,6 @@ def update_neighbors(new_block_repr):
 		print command
 		output = subprocess.check_output(command.split(" "))
 		if output != "INVALID CHAIN" and (len(Chain(chain_repr=output).block_array)==0 or Chain(chain_repr=output).block_array[-1].hash != json.loads(new_block_repr)["hash"]):
-			pass
 			command = "ssh -i SlothStorageAWSKey.pem.txt " + str(line).replace("\n","") + " python blockchain.py " + str(1) + " '" + new_block_repr + "'"
 			print command
 			output = subprocess.check_output( ("ssh -i SlothStorageAWSKey.pem.txt " + str(line).replace("\n","") + " python blockchain.py " + str(1) + " '" + new_block_repr + "'").split())
