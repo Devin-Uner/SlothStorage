@@ -1,17 +1,18 @@
-.body{
-
-}
 
 #login {
   padding-top: 40px;
   padding-bottom: 40px;
 }
 #patient-login{
-  background-color: #a6a6a6;
+  background-color: #d4d8d5;
 }
 #doctor-login{
 	background-color: 336699;
 	color: white;
+}
+#analytic-login{
+  background-color:#fff;
+  color:black; 
 }
 #form-signin{
   /*should be responsive*/
