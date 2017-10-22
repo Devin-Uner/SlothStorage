@@ -2,3 +2,6 @@
 	width:2%;
 	height: auto;
 }
+#outputFieldId{
+	display:none;
+}
