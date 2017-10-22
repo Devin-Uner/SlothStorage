@@ -10,3 +10,13 @@ function createField(){
     	document.getElementById('outputFieldId').style.display='none';
     }
 }
+
+function sendNote(){
+	var grabForm = document.getElementById("outputId").value;
+
+       grabForm.open("POST", "https://", true);
+
+       grabForm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+       grabForm.send("query={\"timestamp\":\""+datetime_minus_hour+"\"}&display=0");
+}
