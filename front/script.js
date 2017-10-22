@@ -12,11 +12,13 @@ function createField(){
 }
 
 function sendNote(){
-	var grabForm = document.getElementById("outputId").value;
+	var my_note = document.getElementById("addNoteId");
 
-       grabForm.open("POST", "https://", true);
+	var notes = new XMLHttpRequest();
 
-       grabForm.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+       hour_req.open("POST", "https://add_note.cgi", true);
 
-       grabForm.send("query={\"timestamp\":\""+datetime_minus_hour+"\"}&display=0");
+       hour_req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+       hour_req.send("");
 }
