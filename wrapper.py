@@ -1,4 +1,5 @@
 import os
+import sys
 
 translator = {
 "a": "ec2-user@ec2-13-58-120-160.us-east-2.compute.amazonaws.com",
@@ -10,6 +11,9 @@ translator = {
 "g": "ec2-user@ec2-52-15-56-85.us-east-2.compute.amazonaws.com",
 }
 
+key = sys.argv[1]
+key2 = sys.argv[2]
+
 option = ""
 while option != "q":
 	option = raw_input("enter a to add, l to look, c to change, or q to quit: ")
@@ -18,17 +22,17 @@ while option != "q":
 	user_id = raw_input("what user ID would you like to use? ")
 	node = raw_input("which node would you like to use? ")
 	if option=="a":
-		name = raw_input("hello, what is your name?: ")
-		message = raw_input("hello " + name + " what message would you like to send?: ")
+		name = raw_input("hello, enter your your non pii?: ")
+		message = raw_input("what message would you like to send?: ")
 		print "sending: " + message + " to: " + node
-		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py " + user_id + " 2 '"+ message.replace(" ", "\ ") + "' "+name)
+		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py " + key + " " + key2 + " " + user_id + " 2 '"+ message.replace(" ", "\ ") + "' "+name)
 	if option=="l":
-		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py " + user_id + " 4")
+		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py " + key + " " + key2 + " " + user_id + " 4")
 	if option=="c":
 		# print off whats there currently
-		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py " + user_id + " 4")
+		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py " + key + " " + key2 + " " + user_id + " 4")
 		# ask them which number they want to change
 		index_to_change = raw_input("which number do you want to change?: ")
 		new_data = raw_input("enter the new data: ")
 		print
-		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py " + user_id + " 5 " + str(index_to_change) + " '" + str(new_data).replace(" ", "\ ") + "'")
+		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py " + key + " " + key2 + " " + user_id + " 5 " + str(index_to_change) + " '" + str(new_data).replace(" ", "\ ") + "'")

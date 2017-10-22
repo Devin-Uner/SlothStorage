@@ -4,23 +4,35 @@ import random
 import subprocess
 import json
 
+key1 = sys.argv[1]
+key2 = sys.argv[2]
+def pii_encrypt(message):
+	long_key = key1*(len(message)/len(key1) + 1)
+	return ''.join(chr(ord(a) ^ ord(b)) for a,b in zip(message,long_key))
+
+def non_pii_encrypt(message):
+	long_key = key2*(len(message)/len(key2) + 1)
+	return ''.join(chr(ord(a) ^ ord(b)) for a,b in zip(message,long_key))
+
+
+
 class Block(object):
 	"""docstring for Block"""
 	def __init__(self, data_=None, previous_hash_=None, adder_=None, difficulty_=None, block_repr=None):
 
 		
 		if block_repr != None:
-			self.data = json.loads(block_repr)["data"]
+			self.data = pii_encrypt(json.loads(block_repr)["data"])
 			self.previous_hash = json.loads(block_repr)["previous_hash"]
-			self.adder = json.loads(block_repr)["adder"]
+			self.adder = non_pii_encrypt(json.loads(block_repr)["adder"])
 			self.time = json.loads(block_repr)["time"]
 			self.difficulty = json.loads(block_repr)["difficulty"]
 			self.nonce = json.loads(block_repr)["nonce"]
 			self.hash = json.loads(block_repr)["hash"]
 		else:
-			self.data = str(data_)
+			self.data = pii_encrypt(str(data_))
 			self.previous_hash = str(previous_hash_)
-			self.adder = str(adder_)
+			self.adder = non_pii_encrypt(str(adder_))
 			self.time = str(datetime.datetime.now())
 			self.difficulty = difficulty_
 
@@ -37,16 +49,16 @@ class Block(object):
 		self.hash = str(hash(self.data + str(self.previous_hash) + self.adder + self.time + str(self.nonce)))+"x"*self.difficulty
 
 	def __repr__(self):
-		return "\n--------" + ("VALID" if self.is_valid() else "INVALID") + "--------\ndata: " + self.data + "\nprevious hash: " + str(self.previous_hash) + "\nhash: " + self.hash + "\nadder: " + self.adder + "\ntime added: " + self.time + "\n----------------\n"
+		return "\n--------" + ("VALID" if self.is_valid() else "INVALID") + "--------\nPII: " + pii_encrypt(self.data) + "\nprevious hash: " + str(self.previous_hash) + "\nhash: " + self.hash + "\nnon-PII: " + non_pii_encrypt(self.adder) + "\ntime added: " + self.time + "\n----------------\n"
 
 	def __str__(self):
 		return json.dumps(self.get_dict())
 
 	def get_dict(self):
 		return {
-				"data": self.data,
+				"data": pii_encrypt(self.data),
 				"previous_hash": str(self.previous_hash),
-				"adder": self.adder,
+				"adder": non_pii_encrypt(self.adder),
 				"time": self.time,
 				"difficulty": self.difficulty,
 				"nonce": self.nonce,
@@ -115,7 +127,7 @@ class Chain(object):
 # f.close()
 
 # make a new one from the file
-f = open("blockchain_data"+sys.argv[1]+".txt", "r")
+f = open("blockchain_data"+sys.argv[3]+".txt", "r")
 data = ""
 for line in f:
 	data += line
@@ -131,21 +143,21 @@ def reset():
 	# so for every line in the nodes.txt file, try to connect and read from it
 	f = open("nodes.txt", "r")
 	for line in f:
-		chain = subprocess.check_output( ("ssh -i SlothStorageAWSKey.pem.txt " + str(line).replace("\n","") + " python blockchain.py " + sys.argv[1] + " 0").split())
+		chain = subprocess.check_output( ("ssh -i SlothStorageAWSKey.pem.txt " + str(line).replace("\n","") + " python blockchain.py " + sys.argv[1] + " " + sys.argv[2] + " " + sys.argv[3] + " 0").split())
 		all_chains[chain] = all_chains.get(chain, 0) + 1
 	f.close()
 	all_chains["INVALID"] = 0
 	best = sorted(all_chains.items(), key=lambda x:x[1])[-1][0]
 	print "found best representation of uncorrupted data, resetting self"
 	new_chain = Chain(chain_repr=best)
-	f = open("blockchain_data"+sys.argv[1]+".txt", "w")
+	f = open("blockchain_data"+sys.argv[3]+".txt", "w")
 	f.write(str(new_chain))
 	f.close()
 
 
 def write():
 	# write the data to a file
-	f = open("blockchain_data"+sys.argv[1]+".txt", "w")
+	f = open("blockchain_data"+sys.argv[3]+".txt", "w")
 	f.write(str(new_chain))
 	f.close()
 
@@ -153,41 +165,44 @@ def write():
 def update_neighbors(new_block_repr):
 	f = open("nodes.txt", "r")
 	for line in f:
-		command = "ssh -i SlothStorageAWSKey.pem.txt " + str(line).replace("\n","") + " python blockchain.py " + sys.argv[1] + " 0"
+		command = "ssh -i SlothStorageAWSKey.pem.txt " + str(line).replace("\n","") + " python blockchain.py " + sys.argv[1] + " " + sys.argv[2] + " " + sys.argv[3] + " 0"
 		print command
 		output = subprocess.check_output(command.split(" "))
 		if output != "INVALID CHAIN" and (len(Chain(chain_repr=output).block_array)==0 or Chain(chain_repr=output).block_array[-1].hash != json.loads(new_block_repr)["hash"]):
-			command = "ssh -i SlothStorageAWSKey.pem.txt " + str(line).replace("\n","") + " python blockchain.py " + sys.argv[1] + " 1" + " '" + new_block_repr + "'"
+			command = "ssh -i SlothStorageAWSKey.pem.txt " + str(line).replace("\n","") + " python blockchain.py " +sys.argv[1] + " " + sys.argv[2] + " " + sys.argv[3] + " 1" + " '" + new_block_repr + "'"
 			print command
 			output = subprocess.check_output( command.split())
+
+
+
 
 
 if not new_chain.is_valid():
 	reset()
 
-if int(sys.argv[2]) == 0: #print off all of the chains data in json format
+if int(sys.argv[4]) == 0: #print off all of the chains data in json format
 	# check if its valid
 	if new_chain.is_valid():
 		print new_chain # if it is just print off its values
 	else:
 		print "INVALID CHAIN"
-if int(sys.argv[2]) == 1: #add a block to the chain with a block_repr, need to have '' around the new block_repr
-	new_chain.add_block(block_repr=sys.argv[3])
+if int(sys.argv[4]) == 1: #add a block to the chain with a block_repr, need to have '' around the new block_repr
+	new_chain.add_block(block_repr=sys.argv[5])
 	new_chain.update_valid()
 	write()
 	update_neighbors(str(new_chain.block_array[-1]))
-if int(sys.argv[2]) == 2: # add a new block to the chain from some data stuff
-	new_chain.add_block(sys.argv[3], sys.argv[4])
+if int(sys.argv[4]) == 2: # add a new block to the chain from some data stuff
+	new_chain.add_block(sys.argv[5], sys.argv[6])
 	new_chain.update_valid()
 	write()
 	update_neighbors(str(new_chain.block_array[-1]))
-if int(sys.argv[2]) == 3: #force reset
+if int(sys.argv[4]) == 3: #force reset
 	reset()
-if int(sys.argv[2]) == 4: #pretty print
+if int(sys.argv[4]) == 4: #pretty print
 	print repr(new_chain)
-if int(sys.argv[2]) == 5: # change something
-	num_to_change = sys.argv[3]
-	new_data = sys.argv[4]
+if int(sys.argv[4]) == 5: # change something
+	num_to_change = sys.argv[5]
+	new_data = sys.argv[6]
 	new_chain.block_array[int(num_to_change)].data = new_data
 	new_chain.update_valid()
 	print repr(new_chain)
