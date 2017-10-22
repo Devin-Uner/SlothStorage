@@ -12,13 +12,23 @@ translator = {
 
 option = ""
 while option != "q":
-	option = raw_input("enter a to add, l to look, c to change, or q to quit\n")
+	option = raw_input("enter a to add, l to look, c to change, or q to quit: ")
+	if option == "q":
+		break
+	user_id = raw_input("what user ID would you like to use? ")
+	node = raw_input("which node would you like to use? ")
 	if option=="a":
-		name = raw_input("hello, what is your name?\n")
-		message = raw_input("hello " + name + " what message would you like to send?\n")
-		node = raw_input("which node would you like to send the message to?\n")
+		name = raw_input("hello, what is your name?: ")
+		message = raw_input("hello " + name + " what message would you like to send?: ")
 		print "sending: " + message + " to: " + node
-		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py 2 '"+ message.replace(" ", "\ ") + "' "+name)
+		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py " + user_id + " 2 '"+ message.replace(" ", "\ ") + "' "+name)
 	if option=="l":
-		node = raw_input("which node would you like to look at?\n")
-		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py 4")
+		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py " + user_id + " 4")
+	if option=="c":
+		# print off whats there currently
+		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py " + user_id + " 4")
+		# ask them which number they want to change
+		index_to_change = raw_input("which number do you want to change?: ")
+		new_data = raw_input("enter the new data: ")
+		print
+		os.system("ssh -i /Users/devin/Desktop/SlothStorageAWSKey.pem.txt " + translator[node] + " python blockchain.py " + user_id + " 5 " + str(index_to_change) + " '" + str(new_data).replace(" ", "\ ") + "'")
