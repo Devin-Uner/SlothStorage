@@ -27,3 +27,9 @@ body{
 	font-size: 60%;
 	text-align: center;
 }
+#us{
+	border-radius:50%;
+}
+#contact{
+	background-color:#fff;
+}

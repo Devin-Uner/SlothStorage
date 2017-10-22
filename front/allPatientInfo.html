@@ -3,12 +3,33 @@
 		<meta charset="utf-8">
 		<title>Patients</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-		<link rel="stylesheet" href="info.css">
+		<link rel="stylesheet" href="display.css">
 	</head>
 	<body>
 		<!--Includes jQuery and Bootstrap js-->
 		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+ 		<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+	      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
+	      <img src="https://puu.sh/y3OZr/f8f800bd43.png" class="img-responsive" id="logo">
+	      <a class="navbar-brand" href="#">
+	      Sloth Storage
+	  	  </a>
+	      <div class="collapse navbar-collapse">
+	        <ul class="navbar-nav mr-auto">
+	          <li class="nav-item">
+	            <a class="nav-link" href="index.html">Home</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="index.html#contact">Contact</a>
+	          </li>
+	        </ul>
+	      </div>
+	      <a href="index.html" class="my-2 my-sm-0">Sign Out</a>
+    	</nav>
+    	<br>
 		<div class="container">
 		  <table class="table">
 			  <thead class="thead-default">
@@ -24,8 +45,8 @@
 			    <tr>
 			      <th scope="row">1</th>
 			      <td>12345</td>
-			      <td>First1</td>
-			      <td>Last1</td>
+			      <td>Ann</td>
+			      <td>Gould</td>
 			      <td><a data-target=".bd-example-modal-lg" data-toggle="modal" class="MainNavText" id="MainNavHelp" href="#this">link/add info</a></td>
 			    </tr>
 			    <tr>
@@ -51,10 +72,23 @@
    				 <div class="modal-content">
      				 <div class="modal-header">
         				<button type="button" class="close" data-dismiss="modal">&times;</button>
-       						<h4 class="modal-title">User whoever's info</h4>
+       						<h4 class="modal-title">Ann Gould's Info</h4>
      				 </div>
       				<div class="modal-body">
-        				<p>Some text in the modal.</p>
+        				<table class="table">
+			  				<thead class="thead-default">
+			    			<tr>
+			      				<th></th>
+			      				<th>Timestamp</th>
+			      				<th>Notes</th>
+			    			</tr>
+			 				</thead>
+			 				<tr>
+						      <th scope="row"></th>
+						      <td>10/21/2017</td>
+						      <td>Sinus infection, prescribed Amoxocillin and Prednisone</td>
+			    			</tr>
+			 			</table>
       				</div>
       				<div class="modal-footer">
         				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
